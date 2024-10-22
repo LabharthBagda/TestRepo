@@ -1,23 +1,25 @@
 pipeline {
-    agent any  // Use any available agent
+    agent any
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the Git repository
                 git 'https://github.com/LabharthBagda/TestRepo.git'
+            }
+        }
+        stage('List Files') {
+            steps {
+                bat 'dir'  // For Windows
             }
         }
         stage('Build') {
             steps {
-                // Compile the Java code
-                bat 'javac Main.java'  // Compile Main.java
+                bat 'javac Main.java'
             }
         }
         stage('Run') {
             steps {
-                // Run the compiled Java program
-                bat 'java Main'  // Run Main class
+                bat 'java Main'
             }
         }
     }
@@ -31,4 +33,5 @@ pipeline {
         }
     }
 }
+
 
