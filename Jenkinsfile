@@ -1,20 +1,34 @@
 pipeline {
-    agent any 
+    agent any  // Use any available agent
+
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the Git repository
+                git 'https://github.com/LabharthBagda/TestRepo.git'
+            }
+        }
         stage('Build') {
             steps {
-                echo 'Building...'
+                // Compile the Java code
+                sh 'javac Main.java'  // Compile Main.java
             }
         }
-        stage('Test') {
+        stage('Run') {
             steps {
-                echo 'Testing...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
+                // Run the compiled Java program
+                sh 'java Main'  // Run Main class
             }
         }
     }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for details.'
+        }
+    }
 }
+
